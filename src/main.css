@@ -1,0 +1,29 @@
+body > div > div > div.msj-rta.macro{
+    margin:auto;margin-left:1%;
+}
+h3{
+  display: inline-block;
+}
+.chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+.connection-info > button{
+  margin: 0% 5% ;
+}
+.form-group > button {
+  width: 500px;
+}
+
+.connection-info{
+  display: block;
+  width: 600px;
+  margin: 2%;
+}
+/* CSS IDS*/
+#username{
+  width: 200px;
+  margin: 2%;
+}
