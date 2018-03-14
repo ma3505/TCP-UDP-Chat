@@ -4,14 +4,14 @@
   "description": "tcp/udp chat client",
   "main": "index.js",
   "scripts": {
-    "start":"webpack-dev-server",
+    "start": "http-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^4.0.0",
-    "webpack": "^3.11.0",
-    "webpack-dev-server": "^2.11.1"
+    "dgram": "^1.0.1",
+    "jquery": "^3.3.1"
   }
 }
