@@ -2,11 +2,31 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet"  type="text/css" href="../main.css">
-    <title>Welcome to Connection Chat!</title>
+    <title>Welcome to NSSA Chat!</title>
   </head>
   <body>
-    <h3>Connection Chat</h3>
-
+    <div class="chat-container">
+      <h2>Welcome to NSSA Chat</h2>
+      <div class="msg-components">
+        <div class="row">
+          <div class="col-10">
+            <textarea id="message-output" cols="155" rows="10" placeholder="Welcome IP : xxx.xxx.xxx"></textarea>
+          </div>
+          <div class="col-2">
+            <textarea id="connected-users" rows="19" placeholder="Connected Users"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-10">
+            <input id="input-msg-box" placeholder="Enter a message" />
+          </div>
+          <div class="col-2">
+            <button type="button" class="btn btn-primary" id="send-msg">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
