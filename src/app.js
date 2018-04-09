@@ -1,53 +1,30 @@
-var $ = require('jquery');
-var dgram = require('dgram');
+import "./stylesheets/main.css";
 
-var connectionType = "";
+// Small helpers you might want to keep
+import "./helpers/context_menu.js";
+import "./helpers/external_links.js";
 
-$(document).ready(()=>{
+// ----------------------------------------------------------------------------
+// Everything below is just to show you how it works. You can delete all of it.
+// ----------------------------------------------------------------------------
 
-// Launch Ajax call to PHP server
-  $("#submit").click(()=>{
-    $.ajax({
-      type: "POST",
-      url:"http://localhost:8888/server.php",
-      data:JSON.stringify({
-        username:$('#username').val(),
-        connection: connectionType
-      }),
-      datatype:"json",
-      success: function(data){
-        window.location = '/pages/chatroom.html';
-      },
-      error: function(xhr, textStatus, errorThrown){
-          //if failed, then log it
-          console.log(errorThrown);
-          window.location = "error.html";
-      }
-    });// End of Ajax call
-  });
+import { remote } from "electron";
+import jetpack from "fs-jetpack";
+import { greet } from "./hello_world/hello_world";
+import env from "env";
 
+const app = remote.app;
+const appDir = jetpack.cwd(app.getAppPath());
 
+// Holy crap! This is browser window with HTML and stuff, but I can read
+// files from disk like it's node.js! Welcome to Electron world :)
+const manifest = appDir.read("package.json", "json");
 
-// Handle Buttons for Connection Type
-  $("#TCP").click((val)=>{
-    connectionType = "TCP";
-    if($('#TCP').hasClass('btn-primary')){
-        $('#TCP').removeClass('btn-primary');
-        $('#TCP').addClass('bg-warning');
-        $('#UDP').removeClass('bg-warning');
-        $('#UDP').addClass('btn-primary');
-    }
-  });
-  $("#UDP").click((val)=>{
-    connectionType = "UDP";
-    if($('#UDP').hasClass('btn-primary')){
-        $('#TCP').removeClass('btn-primary');
+const osMap = {
+  win32: "Windows",
+  darwin: "macOS",
+  linux: "Linux"
+};
 
-        $('#UDP').addClass('bg-warning');
-        $('#TCP').removeClass('bg-warning');
-        $('#TCP').addClass('btn-primary');
-    }
-  });
-
-
-}); // End Document Onload()
+document.querySelector("#app").style.display = "block";
+document.querySelector("#greet").innerHTML = greet();
