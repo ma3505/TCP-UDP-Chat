@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="UTF-8">
+      <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+      <link rel="stylesheet"  type="text/css" href="../assets/main.css">
+      <title>NSSA CHAT</title>
+    </head>
+    <body>
+      <div ip="app" class="container">
+        <h1 id="greet">Welcome to NSSA Chat</h1>
+        <form id="connectForm" method="post">
+          <div class="connection-info">
+            <h3>Enter a Username</h3>
+            <input id="username" name="username" placeholder="i.e johndoe880"/>
+            </br>
+            </br>
+            <div class="select-connection">
+              <h3>Select Connection Type</h3>
+              </br>
+              <button type="button" class="btn btn-primary" id="TCP">TCP/IP</button>
+              <button type="button" class="btn btn-primary" id="UDP">UDP</button>
+            </div>
+          </div>
+          </br>
+        </form>
+        <button id="submit" class="btn btn-success">Connect!</button>
+      </div>
+      <script src=index.js></script>
+    </body>
+    <!-- <script src="../main.js"></script> -->
+  </html>
