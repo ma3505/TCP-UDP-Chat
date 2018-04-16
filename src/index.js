@@ -12,11 +12,12 @@ var CLIENT;
 var PORT;
 var USER;
 var CONNECTION_TYPE="";
+let ERR_MSG="";
 
-$( document ).ready(function() {
+$( document ).ready(()=>{
     console.log( "ready!" );
 
-    $("#submit").click(function(){
+    $("#submit").click(()=>{
       // setup socket connection
       // window.location = "chatroom.html"
       SERVER_IP = $("#serverip").val();
@@ -24,21 +25,33 @@ $( document ).ready(function() {
       USER = $("#username").val();
       // Choose Connection  socket Type
       if(CONNECTION_TYPE ==  "TCP"){
-
-          CLIENT = net.connect(PORT,SERVER_IP,
-            function(){
+        try{
+          CLIENT = net.connect(PORT,SERVER_IP,()=>{
               console.log("connected to server");
                // Load in the chatroom template - this is necessary since
                // web socket do not persist when reloading the webpage
-              $(".container").load("chatroom.html",function(){
+              $(".container").load("chatroom.html",()=>{
 
-                // Sends Message to the defined server
-                $("#send-msg").click(function(){
+                // HANDLE EVENT FOR RECIEVING TCP DATA
+                CLIENT.on('data',(data)=>{
+                  console.log(data.toString());
+                  //parse and push message to chatbot
+                });
+
+
+                // HANDLE EVENT FOR SENDING TCP DATA
+                $("#send-msg").click(()=>{
                   var msg_body = $("#input-msg-box").val();
                   CLIENT.write(String(msg_body));
                 });
+
+
+
               });
             });
+        }catch(err){
+          console.log(err);
+        }
 
 
       }else if(CONNECTION_TYPE == "UDP"){
@@ -54,9 +67,6 @@ $( document ).ready(function() {
 
 
     });
-
-
-
 
 
     // Handle Buttons for Connection Type
