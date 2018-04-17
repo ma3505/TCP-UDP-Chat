@@ -19,7 +19,6 @@ $( document ).ready(()=>{
 
     $("#submit").click(()=>{
       // setup socket connection
-      // window.location = "chatroom.html"
       SERVER_IP = $("#serverip").val();
       PORT = $("#port").val();
       USER = $("#username").val();
@@ -28,25 +27,29 @@ $( document ).ready(()=>{
         try{
           CLIENT = net.connect(PORT,SERVER_IP,()=>{
               console.log("connected to server");
+                // Send username to server
+                CLIENT.write("<<<USERNAME:>>><<<"+USER+">>>")
                // Load in the chatroom template - this is necessary since
                // web socket do not persist when reloading the webpage
               $(".container").load("chatroom.html",()=>{
 
+                // OUTPUT SUCCESS IN placeholder of message box
+                $("#message-output").attr("placeholder","Welcome to: "+ SERVER_IP);
                 // HANDLE EVENT FOR RECIEVING TCP DATA
                 CLIENT.on('data',(data)=>{
                   console.log(data.toString());
+
                   //parse and push message to chatbot
+                  push_message(data.toString());
                 });
 
 
                 // HANDLE EVENT FOR SENDING TCP DATA
                 $("#send-msg").click(()=>{
                   var msg_body = $("#input-msg-box").val();
+                  encoded_msg = encode_message(msg_body);
                   CLIENT.write(String(msg_body));
                 });
-
-
-
               });
             });
         }catch(err){
@@ -68,6 +71,13 @@ $( document ).ready(()=>{
 
     });
 
+    // Push to Chatbox
+    push_message = (msg) =>{
+      var txt = $("#message-output");
+      txt.val( txt.val() + "\n"+msg.toString()+"\n");
+      $("#input-msg-box").val("");
+
+    }
 
     // Handle Buttons for Connection Type
     $("#TCP").click((val)=>{
@@ -91,3 +101,8 @@ $( document ).ready(()=>{
     });
 
 }); // End Document onload
+
+encode_message = (msg) =>{
+  del_msg = "<<<FROM:>>>"+USER+"<<<MSG:>>>"+msg;
+  return del_msg;
+}
