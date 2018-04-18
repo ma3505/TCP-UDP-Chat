@@ -1,9 +1,11 @@
 const $ = require('jquery');
 const dgram = require('dgram');
-const electron = require('electron')
-const path = require('path')
+const electron = require('electron');
 const BrowserWindow = electron.remote.BrowserWindow;
 const net = require('net');
+const path = require('path');
+
+
 
 
 // Connection Info
@@ -11,7 +13,7 @@ var SERVER_IP;
 var CLIENT;
 var PORT;
 var USER;
-var CONNECTION_TYPE="";
+var CONNECTION_TYPE = "";
 let ERR_MSG="";
 
 $( document ).ready(()=>{
@@ -23,7 +25,7 @@ $( document ).ready(()=>{
       PORT = $("#port").val();
       USER = $("#username").val();
       // Choose Connection  socket Type
-      if(CONNECTION_TYPE ==  "TCP"){
+      if(CONNECTION_TYPE ==  "TCP" && validate()){
         try{
           CLIENT = net.connect(PORT,SERVER_IP,()=>{
               console.log("connected to server");
@@ -56,16 +58,11 @@ $( document ).ready(()=>{
           console.log(err);
         }
 
-
       }else if(CONNECTION_TYPE == "UDP"){
         console.log("NOT YET SUPPORTED");
       }else{
-          // Erros are handled here
-          const modalPath = path.join('file://',__dirname,'error.html');
-          let err_win = new BrowserWindow({width:400, height:100})
-          err_win.on('close', function() {err_win = null })
-          err_win.loadURL(modalPath)
-          err_win.show()
+        validate();
+        openError(ERR_MSG);
       }
 
 
@@ -77,7 +74,26 @@ $( document ).ready(()=>{
       txt.val( txt.val() + "\n"+msg.toString()+"\n");
       $("#input-msg-box").val("");
 
-    }
+    };
+
+    // Validate all Inputs have
+    var validate = () => {
+      if(CONNECTION_TYPE == ""){
+        ERR_MSG = "No Connection Type Specified";
+        return false;
+      }else if ($("#username").val() == "") {
+        ERR_MSG = "No Username Specified";
+        return false;
+      }else if ($("#serverip").val() == "") {
+        ERR_MSG = "No IP Specified";
+        return false;
+      }else if ($("#port").val() == "") {
+        ERR_MSG = "No port Specified";
+        return false;
+      }else {
+        return true;
+      }
+    };
 
     // Handle Buttons for Connection Type
     $("#TCP").click((val)=>{
@@ -93,7 +109,6 @@ $( document ).ready(()=>{
       CONNECTION_TYPE = "UDP";
       if($('#UDP').hasClass('btn-primary')){
           $('#TCP').removeClass('btn-primary');
-
           $('#UDP').addClass('bg-warning');
           $('#TCP').removeClass('bg-warning');
           $('#TCP').addClass('btn-primary');
@@ -105,4 +120,17 @@ $( document ).ready(()=>{
 encode_message = (msg) =>{
   del_msg = "<<<FROM:>>>"+USER+"<<<MSG:>>>"+msg;
   return del_msg;
+}
+
+openError = (err) =>{
+  // Erros are handled here
+  const modalPath = path.join('file://',__dirname,'error.html');
+  let err_win = new BrowserWindow({width:400, height:150});
+  err_win.on('close', function() {err_win = null });
+  err_win.loadURL(modalPath);
+  err_win.show();
+  err_win.webContents.on('did-finish-load', ()=>{
+    // Pass error to second window
+    err_win.send('message',err);
+  })
 }
