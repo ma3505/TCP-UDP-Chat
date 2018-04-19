@@ -1,4 +1,5 @@
 const $ = require('jquery');
+const ip = require('ip');
 const dgram = require('dgram');
 const electron = require('electron');
 const BrowserWindow = electron.remote.BrowserWindow;
@@ -36,16 +37,25 @@ $( document ).ready(()=>{
               $(".container").load("chatroom.html",()=>{
 
                 // OUTPUT SUCCESS IN placeholder of message box
-                $("#message-output").attr("placeholder","Welcome to: "+ SERVER_IP);
+                $("#message-output").attr("placeholder","Now contacting Server "
+                  + SERVER_IP + " with " + CONNECTION_TYPE + " from " + ip.address()
+                );
                 // HANDLE EVENT FOR RECIEVING TCP DATA
                 CLIENT.on('data',(data)=>{
-                  console.log(data.toString());
+                  var results = new Array();
+                  var data = data.toString();
 
-                  //parse and push message to chatbot
-                  push_message(data.toString());
+                  // Format Response into a result set
+                  data_arry = data.split(/<<<|>>>/);
+                  results.push(data_arry[1]);
+                  results.push(data_arry[3]);
+
+                  // Depending on the parsed regex execute a ACTION
+                  if(results[0]=="NEW_MESSAGE"){
+                    //parse and push message to chatbot
+                    push_message(results[1]);
+                  }
                 });
-
-
                 // HANDLE EVENT FOR SENDING TCP DATA
                 $("#send-msg").click(()=>{
                   var msg_body = $("#input-msg-box").val();
@@ -59,6 +69,11 @@ $( document ).ready(()=>{
         }
 
       }else if(CONNECTION_TYPE == "UDP"){
+
+
+
+
+
         console.log("NOT YET SUPPORTED");
       }else{
         validate();
