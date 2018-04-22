@@ -5,10 +5,6 @@ const electron = require('electron');
 const BrowserWindow = electron.remote.BrowserWindow;
 const net = require('net');
 const path = require('path');
-
-
-
-
 // Connection Info
 var SERVER_IP;
 var CLIENT;
@@ -18,8 +14,6 @@ var CONNECTION_TYPE = "";
 let ERR_MSG="";
 
 $( document ).ready(()=>{
-    console.log( "ready!" );
-
     $("#submit").click(()=>{
       // setup socket connection
       SERVER_IP = $("#serverip").val();
@@ -69,12 +63,37 @@ $( document ).ready(()=>{
         }
 
       }else if(CONNECTION_TYPE == "UDP"){
+        // Send Request to server to hit the UDP server endpoint
+        try{
+
+          MESSAGE= new Buffer("<<<USERNAME:>>><<<"+USER+">>>");
+          UDP_SERVER = dgram.createSocket('udp4');
+          // SEND INITIAL CONNECTION MESSAGE
+          UDP_SERVER.send(MESSAGE, 0, MESSAGE.length, PORT, SERVER_IP, function(err, bytes) {
+              console.log('UDP Connected to ' + SERVER_IP +':'+ PORT);
+          });
+          // Render Chat Box and begin UDP listening
+          $(".container").load("chatroom.html",()=>{
+
+            // OUTPUT connection details in  placeholder of message box
+            $("#message-output").attr("placeholder","Now contacting Server "
+              + SERVER_IP + " with " + CONNECTION_TYPE + " from " + ip.address()
+            );
+            // Handle recieving new UDP mesages
+            UDP_SERVER.on("message",(msg,info) => {
+              // Output messsage to chat box
+              push_message(msg);
+            });
 
 
+          });
 
 
+        }catch(err){
+          console.log(err);
+        }
 
-        console.log("NOT YET SUPPORTED");
+
       }else{
         validate();
         openError(ERR_MSG);
