@@ -25,7 +25,7 @@ $( document ).ready(()=>{
           CLIENT = net.connect(PORT,SERVER_IP,()=>{
               console.log("connected to server");
                 // Send username to server
-                CLIENT.write("<<<USERNAME:>>><<<"+USER+">>>")
+                CLIENT.write("<<<"+USER+">>>");
                // Load in the chatroom template - this is necessary since
                // web socket do not persist when reloading the webpage
               $(".container").load("chatroom.html",()=>{
@@ -66,7 +66,7 @@ $( document ).ready(()=>{
         // Send Request to server to hit the UDP server endpoint
         try{
 
-          MESSAGE= new Buffer("<<<USERNAME:>>><<<"+USER+">>>");
+          MESSAGE= new Buffer("<<<"+USER+">>>");
           UDP_SERVER = dgram.createSocket('udp4');
           // SEND INITIAL CONNECTION MESSAGE
           UDP_SERVER.send(MESSAGE, 0, MESSAGE.length, PORT, SERVER_IP, function(err, bytes) {
