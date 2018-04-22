@@ -1,10 +1,19 @@
 body{
   background-color: #65D3FA;
 }
+h3{
+  font-size:1em;
+  margin: .53em;
 
+}
+input{
+  display: block;
+  width:50%;
+  margin: 0px auto;
+}
 .btn{
   width: 200px;
-  margin: 2% 0%;
+  margin: 0px 0%;
 }
 .chat{
   border: 3px solid #FFFFFF;
@@ -19,11 +28,12 @@ body{
   margin: 2% 10%;
 }
 .connection-info > button{
-  margin: 0% 5% ;
+  margin: 0% 2% ;
 
 }
 .connection-info > h3 {
     width: 100%;
+
     text-align: center;
     margin: 0 auto;
 }
@@ -34,7 +44,7 @@ body{
   padding: 0;
 }
 .form-group > button  {
-  margin: 0 auto;
+  margin: 8px auto;
   width:100%;
 }
 .form-group > input{
@@ -59,6 +69,7 @@ body{
   margin: 0% 10%;
   text-align:center;
 }
+
 
 
 /* CSS IDS*/
@@ -87,9 +98,14 @@ body{
   width: 100%;
 }
 
-#username{
+#port {
   display: block;
-  width:50%;
+  width:20%;
+  margin: 0px auto;
+}
+#serverip{
+  display: block;
+  width: 50%;
   margin: 0px auto;
 }
 #greet{
@@ -97,5 +113,20 @@ body{
   text-align: center;
 }
 #submit{
-  width: 100%;
+   position: fixed;
+   width: 100%;
+   height: 15%;
+   bottom: 0px;
+   right: 0px;
+}
+#closeBtn {
+  position: absolute;
+  margin-top: 10%;
+  margin-left: 20%;
+}
+#notify{
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  margin: .5%;
 }

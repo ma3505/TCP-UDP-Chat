@@ -1,4 +1,7 @@
+node_modules
+.DS_Store
+Thumbs.db
 *.log
-node_modules/
-dist/
-.eslintcache
+
+/dist
+/temp
