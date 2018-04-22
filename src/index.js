@@ -45,10 +45,10 @@ $( document ).ready(()=>{
                   results.push(data_arry[3]);
 
                   // Depending on the parsed regex execute a ACTION
-                  if(results[0]=="NEW_MESSAGE"){
-                    //parse and push message to chatbot
-                    push_message(results[1]);
-                  }
+
+                  //parse and push message to chatbot
+                  push_message(data);
+
                 });
                 // HANDLE EVENT FOR SENDING TCP DATA
                 $("#send-msg").click(()=>{
@@ -148,7 +148,6 @@ $( document ).ready(()=>{
           $('#TCP').addClass('btn-primary');
       }
     });
-
 }); // End Document onload
 
 encode_message = (msg) =>{
