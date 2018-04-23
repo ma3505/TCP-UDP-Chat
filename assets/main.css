@@ -94,8 +94,8 @@ input{
 
 #message-output{
   display: block;
-  height: 100%;
-  width: 100%;
+  height: 120%;
+  width: 120%;
 }
 
 #port {

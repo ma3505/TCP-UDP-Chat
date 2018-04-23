@@ -43,11 +43,8 @@ $( document ).ready(()=>{
                   data_arry = data.split(/<<<|>>>/);
                   results.push(data_arry[1]);
                   results.push(data_arry[3]);
-
-                  // Depending on the parsed regex execute a ACTION
-
                   //parse and push message to chatbot
-                  push_message(data);
+                  push_message(data + " via TCP/IP");
 
                 });
                 // HANDLE EVENT FOR SENDING TCP DATA
