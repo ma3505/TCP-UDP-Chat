@@ -54,7 +54,7 @@ $( document ).ready(()=>{
                 $("#send-msg").click(()=>{
                   var msg_body = $("#input-msg-box").val();
                   encoded_msg = encode_message(msg_body);
-                  CLIENT.write(String(msg_body));
+                  CLIENT.write(String(encoded_msg));
                 });
               });
             });
@@ -84,6 +84,17 @@ $( document ).ready(()=>{
               // Output messsage to chat box
               push_message(msg);
             });
+
+            // HANDLE EVENT FOR SENDING UDP DATA
+            $("#send-msg").click(()=>{
+              var msg_body = $("#input-msg-box").val();
+              encoded_msg = encode_message(msg_body);
+              UDP_SERVER.send(encoded_msg, 0, encoded_msg.length, PORT, SERVER_IP, function(err, bytes) {
+                  console.log('UDP Message' + encoded_msg);
+              });
+
+            });
+
 
 
           });
@@ -151,7 +162,7 @@ $( document ).ready(()=>{
 }); // End Document onload
 
 encode_message = (msg) =>{
-  del_msg = "<<<FROM:>>>"+USER+"<<<MSG:>>>"+msg;
+  del_msg = "<<<USERNAME:"+USER+">>><<<MSG:"+msg+">>>"
   return del_msg;
 }
 
