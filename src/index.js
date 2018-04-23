@@ -89,25 +89,15 @@ $( document ).ready(()=>{
               UDP_SERVER.send(encoded_msg, 0, encoded_msg.length, PORT, SERVER_IP, function(err, bytes) {
                   console.log('UDP Message' + encoded_msg);
               });
-
             });
-
-
-
           });
-
-
         }catch(err){
           console.log(err);
         }
-
-
-      }else{
+      } else {
         validate();
         openError(ERR_MSG);
       }
-
-
     });
 
     // Push to Chatbox
