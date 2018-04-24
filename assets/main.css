@@ -11,6 +11,9 @@ input{
   width:50%;
   margin: 0px auto;
 }
+li{
+  list-style-type:none;
+}
 .btn{
   width: 200px;
   margin: 0px 0%;
@@ -93,8 +96,8 @@ input{
 }
 
 #message-output{
-  display: block;
-  height: 120%;
+  display:block;
+  height: 150%;
   width: 120%;
 }
 
