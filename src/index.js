@@ -16,7 +16,7 @@ let ERR_MSG="";
 $( document ).ready(()=>{
     $("#submit").click(()=>{
       // setup socket connection
-      SERVER_IP = $("#serverip").val();
+      SERVER_IP = String($("#serverip").val()).trim();
       PORT = $("#port").val();
       USER = $("#username").val();
       // Choose Connection  socket Type
@@ -146,6 +146,16 @@ $( document ).ready(()=>{
           $('#TCP').addClass('btn-primary');
       }
     });
+// Handle Enter Key submit
+$("#input-msg-box").keyup(function(event) {
+    if (event.keyCode === 13) {
+        $("#send-msg").click(()=>{
+          console.log("ENTER CLICKED");
+        });
+    }
+});
+
+
 }); // End Document onload
 
 encode_message = (msg) =>{
