@@ -36,13 +36,7 @@ $( document ).ready(()=>{
                 );
                 // HANDLE EVENT FOR RECIEVING TCP DATA
                 CLIENT.on('data',(data)=>{
-                  var results = new Array();
                   var data = data.toString();
-
-                  // Format Response into a result set
-                  data_arry = data.split(/<<<|>>>/);
-                  results.push(data_arry[1]);
-                  results.push(data_arry[3]);
                   //parse and push message to chatbot
                   push_message(data);
 
@@ -102,8 +96,12 @@ $( document ).ready(()=>{
 
     // Push to Chatbox
     push_message = (msg) =>{
-      var txt = $("#message-output");
-      txt.val( txt.val() + "\n"+msg.toString()+"\n");
+      //var txt = $("#message-output");
+      // var txt = $.trim($(this).text());
+      // var box = $("#text-box");
+      //
+      // box.val(box.val() + txt);
+      $("#message-output").append($("<li>").text(msg));
       $("#input-msg-box").val("");
 
     };
