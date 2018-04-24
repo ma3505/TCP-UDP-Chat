@@ -146,14 +146,6 @@ $( document ).ready(()=>{
           $('#TCP').addClass('btn-primary');
       }
     });
-// Handle Enter Key submit
-$("#input-msg-box").keyup(function(event) {
-    if (event.keyCode === 13) {
-        $("#send-msg").click(()=>{
-          console.log("ENTER CLICKED");
-        });
-    }
-});
 
 
 }); // End Document onload
