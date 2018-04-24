@@ -12,7 +12,15 @@ input{
   margin: 0px auto;
 }
 li{
+
   list-style-type:none;
+}
+#chatroom{
+  display: block;
+  width: 120%;
+  height: 200%;
+  padding-bottom: 20%;
+  background-color: #FFF;
 }
 .btn{
   width: 200px;
