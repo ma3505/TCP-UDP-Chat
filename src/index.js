@@ -44,7 +44,7 @@ $( document ).ready(()=>{
                   results.push(data_arry[1]);
                   results.push(data_arry[3]);
                   //parse and push message to chatbot
-                  push_message(data + " via TCP/IP");
+                  push_message(data);
 
                 });
                 // HANDLE EVENT FOR SENDING TCP DATA
